@@ -1,0 +1,60 @@
+/* Box Model Hack */
+*{
+    box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+}
+
+.turn-zone {
+  display: flex;
+  background: rgb(15, 181, 181);
+  justify-content: space-around;
+}
+
+#roll-button {
+  display: block;
+  margin: 15px auto;
+}
+
+.dice {
+  background: rgb(235, 167, 167);
+  display: flex;
+  justify-content: space-between;
+}
+
+.dice h3 {
+  text-align: center;
+}
+
+.score {
+  display: block;
+  margin: 0 auto;
+}
+
+#check-score-button {
+  display:block;
+  margin: 0 auto;
+}
+
+#reset{
+  display: block;
+  margin: 30px auto;
+}
+
+
+@media screen and (max-width: 400px) {
+  body {
+    background: rgb(175, 175, 121);
+  }
+
+  .dice-box {
+    width: 33%;
+  }
+
+  .dice {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

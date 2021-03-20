@@ -29,6 +29,7 @@ h1 {
 }
 
 .score {
+  text-align: center;
   display: block;
   margin: 0 auto;
 }
@@ -43,6 +44,10 @@ h1 {
   margin: 30px auto;
 }
 
+img {
+  width: 40px;
+}
+
 
 @media screen and (max-width: 415px) {
   body {
@@ -51,6 +56,13 @@ h1 {
 
   .dice-box {
     width: 33%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dice-box img{
+    width: 60px;
+    margin: 0 auto;
   }
 
   .dice {

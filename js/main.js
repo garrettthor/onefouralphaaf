@@ -23,6 +23,7 @@ let d6 = {
     hold:false
 }
 
+
 let rollCount = 0
 
 function updateTurninDOM(){
@@ -30,12 +31,24 @@ function updateTurninDOM(){
 }
 
 function updateDiceInDOM(){
-    document.querySelector('#dvalue1').innerText = d1.value
-    document.querySelector('#dvalue2').innerText = d2.value
-    document.querySelector('#dvalue3').innerText = d3.value
-    document.querySelector('#dvalue4').innerText = d4.value
-    document.querySelector('#dvalue5').innerText = d5.value
-    document.querySelector('#dvalue6').innerText = d6.value
+    if (d1.hold === false){
+        document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '.png'
+    }
+    if (d2.hold === false){
+        document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '.png'
+    }
+    if (d3.hold === false){
+        document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '.png' 
+    }
+    if (d4.hold === false){
+        document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '.png'
+    }
+    if (d5.hold === false){
+        document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '.png' 
+    }
+    if (d6.hold === false){
+        document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '.png' 
+    }   
 }
 
 const rollButton = document.querySelector('#roll-button')
@@ -115,37 +128,37 @@ updateHoldCond()
 
 function hold1(){
     d1.hold = true
-    document.querySelector('#dvalue1').style = "color: red;"
+    document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold2(){
     d2.hold = true
-    document.querySelector('#dvalue2').style = "color: red;"
+    document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold3(){
     d3.hold = true
-    document.querySelector('#dvalue3').style = "color: red;"
+    document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold4(){
     d4.hold = true
-    document.querySelector('#dvalue4').style = "color: red;"
+    document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold5(){
     d5.hold = true
-    document.querySelector('#dvalue5').style = "color: red;"
+    document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold6(){
     d6.hold = true
-    document.querySelector('#dvalue6').style = "color: red;"
+    document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
@@ -210,22 +223,22 @@ resetButton.addEventListener('click', reset)
 function reset(){
     d1.value = 0
     d1.hold = false
-    document.querySelector('#dvalue1').style = "color: black;"
+    document.querySelector('#dvalue1').src = ''
     d2.value = 0
     d2.hold = false
-    document.querySelector('#dvalue2').style = "color: black;"
+    document.querySelector('#dvalue2').src = ''
     d3.value = 0
     d3.hold = false
-    document.querySelector('#dvalue3').style = "color: black;"
+    document.querySelector('#dvalue3').src = ''
     d4.value = 0
     d4.hold = false
-    document.querySelector('#dvalue4').style = "color: black;"
+    document.querySelector('#dvalue4').src = ''
     d5.value = 0
     d5.hold = false
-    document.querySelector('#dvalue5').style = "color: black;"
+    document.querySelector('#dvalue5').src = ''
     d6.value = 0
     d6.hold = false
-    document.querySelector('#dvalue6').style = "color: black;"
+    document.querySelector('#dvalue6').src = ''
 
     holdCondition = true
 
@@ -235,7 +248,6 @@ function reset(){
     rollCount = 0
 
     updateHoldCond()
-    updateDiceInDOM()
     updateTurninDOM()
     updateTotalScoreDOM()
 }

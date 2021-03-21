@@ -56,8 +56,12 @@ const rollButton = document.querySelector('#roll-button')
 rollButton.addEventListener('click', roll)
 
 function roll(){
+    if (d1.hold === true && d2.hold === true && d3.hold === true && d4.hold === true && d5.hold === true && d6.hold === true){
+        alert('All dice held.  Time to start over.')
+        return
+    }
     if (holdCondition === false){
-        alert('Select a die to hold, ya dummy')
+        alert('Select a die to hold, ya dummy.')
         return
     } else {
         if (d1.hold === false){

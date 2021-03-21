@@ -1,37 +1,72 @@
 /* Box Model Hack */
 *{
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
+  color: white;
+  font-size: 2.5em;
   text-align: center;
 }
 
 .turn-zone {
   display: flex;
-  background: rgb(15, 181, 181);
+  background: rgba(34, 128, 128, 0.5);
   justify-content: space-around;
+  border-radius: 15px;
+}
+
+.turn-zone h2 {
+  color: white;
 }
 
 #roll-button {
+  color: white;
+  font-size: 150%;
+  font-weight: 700;
+  height: 50px;
+  width: 100px;
+  background:rgb(24, 165, 52);
   display: block;
   margin: 15px auto;
+  border-radius: 10px;
 }
 
 .dice {
-  background: rgb(235, 167, 167);
+  background: rgba(235, 167, 167, .4);
   display: flex;
   justify-content: space-between;
+  height: 200px;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  border-radius: 15px;
+}
+
+.dice button {
+  margin-top: 5px;
 }
 
 .dice h3 {
   text-align: center;
 }
 
+#final-score-title {
+  visibility: hidden;
+}
+
 .score {
+  color: white;
   text-align: center;
   display: block;
   margin: 0 auto;
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 15px;
+  background:rgba(34, 128, 128, 0.5);
+  width: 200px;
 }
 
 #check-score-button {
@@ -51,7 +86,8 @@ img {
 
 @media screen and (max-width: 415px) {
   body {
-    background: rgb(175, 175, 121);
+    background: linear-gradient(rgba(106, 106, 106, 0.6), rgba(106, 106, 106, 0.6)),url('../img/big leaves.jpg');
+    background-size: 300%;
   }
 
   .dice-box {

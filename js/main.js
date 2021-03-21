@@ -127,36 +127,60 @@ updateHoldCond()
 
 
 function hold1(){
+    if (rollCount === 0){
+        alert('Roll your first hand before selecting a die to hold')
+        return
+    }
     d1.hold = true
     document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold2(){
+    if (rollCount === 0){
+        alert('Roll your first hand before selecting a die to hold')
+        return
+    }
     d2.hold = true
     document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold3(){
+    if (rollCount === 0){
+        alert('Roll your first hand before selecting a die to hold')
+        return
+    }
     d3.hold = true
     document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold4(){
+    if (rollCount === 0){
+        alert('Roll your first hand before selecting a die to hold')
+        return
+    }
     d4.hold = true
     document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold5(){
+    if (rollCount === 0){
+        alert('Roll your first hand before selecting a die to hold')
+        return
+    }
     d5.hold = true
     document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '-invert.png'
     holdCondition = true
     updateHoldCond()
 }
 function hold6(){
+    if (rollCount === 0){
+        alert('Roll your first hand before selecting a die to hold')
+        return
+    }
     d6.hold = true
     document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '-invert.png'
     holdCondition = true
@@ -211,6 +235,8 @@ function score(){
     }
 
     if (totalScore.oneFour === true){
+        document.querySelector('#final-score-title').style = 'visibility: visible;'
+        document.querySelector('#final-score').style = 'visibility: visible;'
         totalScore.value = d1.value + d2.value + d3.value + d4.value + d5.value + d6.value - 5
         console.log(totalScore.value)
         document.querySelector('#final-score').innerText = totalScore.value
@@ -223,22 +249,25 @@ resetButton.addEventListener('click', reset)
 function reset(){
     d1.value = 0
     d1.hold = false
-    document.querySelector('#dvalue1').src = ''
+    document.querySelector('#dvalue1').src = 'img/dice-blank.png'
     d2.value = 0
     d2.hold = false
-    document.querySelector('#dvalue2').src = ''
+    document.querySelector('#dvalue2').src = 'img/dice-blank.png'
     d3.value = 0
     d3.hold = false
-    document.querySelector('#dvalue3').src = ''
+    document.querySelector('#dvalue3').src = 'img/dice-blank.png'
     d4.value = 0
     d4.hold = false
-    document.querySelector('#dvalue4').src = ''
+    document.querySelector('#dvalue4').src = 'img/dice-blank.png'
     d5.value = 0
     d5.hold = false
-    document.querySelector('#dvalue5').src = ''
+    document.querySelector('#dvalue5').src = 'img/dice-blank.png'
     d6.value = 0
     d6.hold = false
-    document.querySelector('#dvalue6').src = ''
+    document.querySelector('#dvalue6').src = 'img/dice-blank.png'
+
+    document.querySelector('#final-score-title').style = 'visibility: hidden;'
+    document.querySelector('#final-score').style = 'visibility: hidden;'
 
     holdCondition = true
 

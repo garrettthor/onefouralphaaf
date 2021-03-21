@@ -6,7 +6,7 @@
 
 h1 {
   color: white;
-  font-size: 2.5em;
+  font-size: 2.25em;
   text-align: center;
 }
 
@@ -61,7 +61,7 @@ h1 {
   text-align: center;
   display: block;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 15px;
@@ -76,7 +76,7 @@ h1 {
 
 #reset{
   display: block;
-  margin: 30px auto;
+  margin: 10px auto;
 }
 
 img {
@@ -87,7 +87,7 @@ img {
 @media screen and (max-width: 415px) {
   body {
     background: linear-gradient(rgba(106, 106, 106, 0.6), rgba(106, 106, 106, 0.6)),url('../img/big leaves.jpg');
-    background-size: 300%;
+    background-size: 350%;
   }
 
   .dice-box {

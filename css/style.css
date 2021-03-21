@@ -56,6 +56,10 @@ h1 {
   visibility: hidden;
 }
 
+.bottom-group {
+  display: flex;
+}
+
 .score {
   color: white;
   text-align: center;
@@ -72,6 +76,21 @@ h1 {
 #check-score-button {
   display:block;
   margin: 0 auto;
+}
+
+.top-scores {
+  color: white;
+  background: rgba(30, 197, 161, 0.4);
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-top: 0;
+  padding-bottom: 10px;
+  border-radius: 15px;
+}
+
+.top-scores li {
+  font-size: 12px;
+  font-family: 'Press Start 2P', cursive;
 }
 
 #reset{

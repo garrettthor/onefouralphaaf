@@ -218,10 +218,13 @@ function hold(dNum){
 }
 */
 
+
 let totalScore = {
     value: 0,
     oneFour: false
 }
+
+let gameOver = false
 
 function updateTotalScoreDOM(){
     document.querySelector('#final-score').innerText = totalScore.value
@@ -230,7 +233,12 @@ function updateTotalScoreDOM(){
 const scoreButton = document.querySelector('#check-score-button')
 scoreButton.addEventListener('click', score)
 
+
 function score(){
+    if (d1.hold !== true || d2.hold !== true || d3.hold !== true || d4.hold !== true || d5.hold !== true || d6.hold !== true){
+        alert('Please hold all dice to finalize score.')
+        return
+    }
     if ((d1.value === 1 || d2.value === 1 || d3.value === 1 || d4.value === 1 || d5.value === 1 || d6.value === 1) && (d1.value === 4 || d2.value === 4 || d3.value === 4 || d4.value === 4 || d5.value === 4 || d6.value === 4)){
         totalScore.oneFour = true
     } else {
@@ -244,7 +252,19 @@ function score(){
         totalScore.value = d1.value + d2.value + d3.value + d4.value + d5.value + d6.value - 5
         console.log(totalScore.value)
         document.querySelector('#final-score').innerText = totalScore.value
+        if (gameOver === false){
+            updateTopScoresDOM()
+        }
+        gameOver = true
     }
+
+}
+
+function updateTopScoresDOM(){
+    const li = document.createElement('li')
+    const ol = document.querySelector('ol')
+    li.textContent = totalScore.value
+    ol.appendChild(li)
 }
 
 const resetButton = document.querySelector('#reset')
@@ -274,11 +294,13 @@ function reset(){
     document.querySelector('#final-score').style = 'visibility: hidden;'
 
     holdCondition = true
+    gameOver = false
 
     totalScore.value = 0
     totalScore.oneFour = false
 
     rollCount = 0
+
 
     updateHoldCond()
     updateTurninDOM()

@@ -1,3 +1,5 @@
+//Define dice objects with value and hold properties.
+
 let d1 = {
     value:0,
     hold:false
@@ -23,11 +25,70 @@ let d6 = {
     hold:false
 }
 
-
+//This rollCoutn variable is basically the turn counnt.
 let rollCount = 0
 
+//This will update the turn number displayed in the DOM
 function updateTurninDOM(){
     document.querySelector('.turn-number').innerText = rollCount
+}
+
+//Here's the Roll button, its event listener, and the roll() function
+const rollButton = document.querySelector('#roll-button')
+
+rollButton.addEventListener('click', roll)
+
+let holdCondition = true
+
+function roll(){
+    if (d1.hold === true && d2.hold === true && d3.hold === true && d4.hold === true && d5.hold === true && d6.hold === true){
+        alert('All dice held.  Finalize score, or get out the door.')
+        return
+    }
+    if (holdCondition === false){
+        alert('Select a die to hold, ya dummy.')
+        return
+    } else {
+        if (d1.hold === false){
+            d1.value = Math.ceil(Math.random()*6)
+        }
+        if (d2.hold === false){
+            d2.value = Math.ceil(Math.random()*6)
+        }
+        if (d3.hold === false){
+            d3.value = Math.ceil(Math.random()*6)
+        }
+        if (d4.hold === false){
+            d4.value = Math.ceil(Math.random()*6)
+        }
+        if (d5.hold === false){
+            d5.value = Math.ceil(Math.random()*6)
+        }
+        if (d6.hold === false){
+            d6.value = Math.ceil(Math.random()*6)
+        }
+        
+        rollCount += 1
+        
+        console.log(d1.value,d2.value,d3.value,d4.value,d5.value,d6.value)
+        console.log(`Turn #: ${rollCount}`)
+    
+        holdCondition = false
+        heldRN = 0
+        updateHeldRNinDOM()
+    
+        updateHoldCond()
+        updateDiceInDOM()
+        updateTurninDOM()
+    }
+}
+
+function updateHoldCondInDOM(){
+    if (holdCondition === true){
+        document.querySelector('.held-check').innerText = "Proceed"
+    } else if (holdCondition === false){
+        document.querySelector('.held-check').innerText = "Rqd"
+    }
 }
 
 function updateDiceInDOM(){
@@ -51,56 +112,14 @@ function updateDiceInDOM(){
     }   
 }
 
-const rollButton = document.querySelector('#roll-button')
 
-rollButton.addEventListener('click', roll)
+let totalScore = {
+    value: 0,
+    oneFour: false
+}
 
-function roll(){
-    if (d1.hold === true && d2.hold === true && d3.hold === true && d4.hold === true && d5.hold === true && d6.hold === true){
-        alert('All dice held.  Time to start over.')
-        return
-    }
-    if (holdCondition === false){
-        alert('Select a die to hold, ya dummy.')
-        return
-    } else {
-        if (d1.hold === false){
-            d1.value = Math.ceil(Math.random()*6)
-            //document.querySelector('#dvalue1').innerText = d1.value
-        }
-        if (d2.hold === false){
-            d2.value = Math.ceil(Math.random()*6)
-            //document.querySelector('#dvalue2').innerText = d2.value
-        }
-        if (d3.hold === false){
-            d3.value = Math.ceil(Math.random()*6)
-            //document.querySelector('#dvalue3').innerText = d3.value
-        }
-        if (d4.hold === false){
-            d4.value = Math.ceil(Math.random()*6)
-            //document.querySelector('#dvalue4').innerText = d4.value
-        }
-        if (d5.hold === false){
-            d5.value = Math.ceil(Math.random()*6)
-            //document.querySelector('#dvalue5').innerText = d5.value
-        }
-        if (d6.hold === false){
-            d6.value = Math.ceil(Math.random()*6)
-            //document.querySelector('#dvalue6').innerText = d6.value
-        }
-        
-        rollCount += 1
-        
-        console.log(d1.value,d2.value,d3.value,d4.value,d5.value,d6.value)
-        console.log(`Turn #: ${rollCount}`)
-        //document.querySelector('.turn-number').innerText = rollCount
-    
-        holdCondition = false
-    
-        updateHoldCond()
-        updateDiceInDOM()
-        updateTurninDOM()
-    }
+function updateTotalScoreDOM(){
+    document.querySelector('#final-score').innerText = totalScore.value
 }
 
 const hold1button = document.querySelector('#hold1')
@@ -117,133 +136,176 @@ hold4button.addEventListener('click', hold4)
 hold5button.addEventListener('click', hold5)
 hold6button.addEventListener('click', hold6)
 
-let holdCondition = true
+//Below are the Hold Button functions.
 
-function updateHoldCond(){
-    if (holdCondition === true){
-        document.querySelector('.held-check').innerText = "Proceed"
-    } else if (holdCondition === false){
-        document.querySelector('.held-check').innerText = "Hold Rqd"
-    }
+function noHoldWarning(){
+    alert('Roll your first hand before selecting dice to hold.')
 }
 
-updateHoldCond()
+let heldRN = 0
+let heldRNDOM = document.querySelector('#dice-held-RN')
+function updateHeldRNinDOM(){
+    heldRNDOM.innerText = heldRN
+}
+
+function updateHoldCond(){
+    if (heldRN > 0) {
+        holdCondition = true
+        updateHoldCondInDOM()
+    } else if (heldRN === 0){
+        holdCondition = false
+        updateHoldCondInDOM()
+    }
+}
 
 
 function hold1(){
     if (rollCount === 0){
-        alert('Roll your first hand before selecting a die to hold')
+        noHoldWarning()
         return
     }
-    d1.hold = true
-    document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '-invert.png'
-    holdCondition = true
-    updateHoldCond()
+    if (d1.hold === false){
+        d1.hold = true
+        document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '-invert.png'
+        //holdCondition = true
+        heldRN += 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    } else if (d1.hold === true){
+        d1.hold = false
+        document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '.png'
+        heldRN -= 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    }
 }
 function hold2(){
     if (rollCount === 0){
-        alert('Roll your first hand before selecting a die to hold')
+        noHoldWarning()
         return
     }
-    d2.hold = true
-    document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '-invert.png'
-    holdCondition = true
-    updateHoldCond()
+    if (d2.hold === false){
+        d2.hold = true
+        document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '-invert.png'
+        heldRN += 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    } else if (d2.hold === true){
+        d2.hold = false
+        document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '.png'
+        heldRN -= 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    }
 }
 function hold3(){
     if (rollCount === 0){
-        alert('Roll your first hand before selecting a die to hold')
+        noHoldWarning()
         return
     }
-    d3.hold = true
-    document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '-invert.png'
-    holdCondition = true
-    updateHoldCond()
+    if (d3.hold === false){
+        d3.hold = true
+        document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '-invert.png'
+        heldRN += 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    } else if (d3.hold === true){
+        d3.hold = false
+        document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '.png'
+        heldRN -= 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    }
 }
 function hold4(){
     if (rollCount === 0){
-        alert('Roll your first hand before selecting a die to hold')
+        noHoldWarning()
         return
     }
-    d4.hold = true
-    document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '-invert.png'
-    holdCondition = true
-    updateHoldCond()
+    if (d4.hold === false){
+        d4.hold = true
+        document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '-invert.png'
+        heldRN += 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    } else if (d4.hold === true){
+        d4.hold = false
+        document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '.png'
+        heldRN -= 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    }
+    
 }
 function hold5(){
     if (rollCount === 0){
-        alert('Roll your first hand before selecting a die to hold')
+        noHoldWarning()
         return
     }
-    d5.hold = true
-    document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '-invert.png'
-    holdCondition = true
-    updateHoldCond()
+    if (d5.hold === false){
+        d5.hold = true
+        document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '-invert.png'
+        heldRN += 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    } else if (d5.hold === true){
+        d5.hold = false
+        document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '.png'
+        heldRN -= 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    }
 }
 function hold6(){
     if (rollCount === 0){
-        alert('Roll your first hand before selecting a die to hold')
+        noHoldWarning()
         return
     }
-    d6.hold = true
-    document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '-invert.png'
-    holdCondition = true
-    updateHoldCond()
-}
-
-/*
-function hold(dNum){
-    if (dNum === 1){
-        d1.hold = true
-    }
-    if (dNum === 2){
-        d2.hold = true
-    }
-    if (dNum === 3){
-        d3.hold = true
-    }
-    if (dNum === 4){
-        d4.hold = true
-    }
-    if (dNum === 5){
-        d5.hold = true
-    }
-    if (dNum === 6){
+    if (d6.hold === false){
         d6.hold = true
+        document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '-invert.png'
+        heldRN += 1
+        updateHeldRNinDOM()
+        updateHoldCond()
+    } else if (d6.hold === true){
+        d6.hold = false
+        document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '.png'
+        heldRN -= 1
+        updateHeldRNinDOM()
+        updateHoldCond()
     }
-
-    heldCount += 1
-
-    console.log(d1.hold, d2.hold, d3.hold, d4.hold, d5.hold, d6.hold)
 }
-*/
 
-
-let totalScore = {
-    value: 0,
-    oneFour: false
-}
 
 let gameOver = false
-
-function updateTotalScoreDOM(){
-    document.querySelector('#final-score').innerText = totalScore.value
-}
 
 const scoreButton = document.querySelector('#check-score-button')
 scoreButton.addEventListener('click', score)
 
-
 function score(){
+    if (gameOver === true){
+        alert('Game Over.  Please reset.')
+    }
     if (d1.hold !== true || d2.hold !== true || d3.hold !== true || d4.hold !== true || d5.hold !== true || d6.hold !== true){
         alert('Please hold all dice to finalize score.')
         return
     }
+    
     if ((d1.value === 1 || d2.value === 1 || d3.value === 1 || d4.value === 1 || d5.value === 1 || d6.value === 1) && (d1.value === 4 || d2.value === 4 || d3.value === 4 || d4.value === 4 || d5.value === 4 || d6.value === 4)){
         totalScore.oneFour = true
-    } else {
-        alert('You are not in the door.')
-        return
+    }
+
+    if (totalScore.oneFour === false){
+        alert('You were not in the door.')
+        document.querySelector('#final-score-title').style = 'visibility: visible;'
+        document.querySelector('#final-score').style = 'visibility: visible;'
+        totalScore.value = 0
+        console.log(totalScore.value)
+        document.querySelector('#final-score').innerText = totalScore.value
+        if (gameOver === false){
+            updateTopScoresDOM()
+        }
+        gameOver = true
     }
 
     if (totalScore.oneFour === true){
@@ -271,38 +333,93 @@ const resetButton = document.querySelector('#reset')
 resetButton.addEventListener('click', reset)
 
 function reset(){
-    d1.value = 0
-    d1.hold = false
-    document.querySelector('#dvalue1').src = 'img/dice-blank.png'
-    d2.value = 0
-    d2.hold = false
-    document.querySelector('#dvalue2').src = 'img/dice-blank.png'
-    d3.value = 0
-    d3.hold = false
-    document.querySelector('#dvalue3').src = 'img/dice-blank.png'
-    d4.value = 0
-    d4.hold = false
-    document.querySelector('#dvalue4').src = 'img/dice-blank.png'
-    d5.value = 0
-    d5.hold = false
-    document.querySelector('#dvalue5').src = 'img/dice-blank.png'
-    d6.value = 0
-    d6.hold = false
-    document.querySelector('#dvalue6').src = 'img/dice-blank.png'
+    if (gameOver === true){
+        d1.value = 0
+        d1.hold = false
+        document.querySelector('#dvalue1').src = 'img/dice-blank.png'
+        d2.value = 0
+        d2.hold = false
+        document.querySelector('#dvalue2').src = 'img/dice-blank.png'
+        d3.value = 0
+        d3.hold = false
+        document.querySelector('#dvalue3').src = 'img/dice-blank.png'
+        d4.value = 0
+        d4.hold = false
+        document.querySelector('#dvalue4').src = 'img/dice-blank.png'
+        d5.value = 0
+        d5.hold = false
+        document.querySelector('#dvalue5').src = 'img/dice-blank.png'
+        d6.value = 0
+        d6.hold = false
+        document.querySelector('#dvalue6').src = 'img/dice-blank.png'
 
-    document.querySelector('#final-score-title').style = 'visibility: hidden;'
-    document.querySelector('#final-score').style = 'visibility: hidden;'
+        document.querySelector('#final-score-title').style = 'visibility: hidden;'
+        document.querySelector('#final-score').style = 'visibility: hidden;'
 
-    holdCondition = true
-    gameOver = false
+        
+        gameOver = false
 
-    totalScore.value = 0
-    totalScore.oneFour = false
+        totalScore.value = 0
+        totalScore.oneFour = false
 
-    rollCount = 0
+        rollCount = 0
+        heldRN = 0
+        
 
+        updateHeldRNinDOM()
+        updateHoldCond()
+        updateTurninDOM()
+        updateTotalScoreDOM()
 
-    updateHoldCond()
-    updateTurninDOM()
-    updateTotalScoreDOM()
+        holdCondition = true
+        updateHoldCondInDOM()
+    } else if (gameOver === false){
+        alert('Quitter...')
+        totalScore.value = 0
+        console.log(totalScore.value)
+        document.querySelector('#final-score').innerText = totalScore.value
+        if (gameOver === false){
+            updateTopScoresDOM()
+        }
+        d1.value = 0
+        d1.hold = false
+        document.querySelector('#dvalue1').src = 'img/dice-blank.png'
+        d2.value = 0
+        d2.hold = false
+        document.querySelector('#dvalue2').src = 'img/dice-blank.png'
+        d3.value = 0
+        d3.hold = false
+        document.querySelector('#dvalue3').src = 'img/dice-blank.png'
+        d4.value = 0
+        d4.hold = false
+        document.querySelector('#dvalue4').src = 'img/dice-blank.png'
+        d5.value = 0
+        d5.hold = false
+        document.querySelector('#dvalue5').src = 'img/dice-blank.png'
+        d6.value = 0
+        d6.hold = false
+        document.querySelector('#dvalue6').src = 'img/dice-blank.png'
+
+        document.querySelector('#final-score-title').style = 'visibility: hidden;'
+        document.querySelector('#final-score').style = 'visibility: hidden;'
+
+        
+        gameOver = false
+
+        totalScore.value = 0
+        totalScore.oneFour = false
+
+        rollCount = 0
+        heldRN = 0
+        
+
+        updateHeldRNinDOM()
+        updateHoldCond()
+        updateTurninDOM()
+        updateTotalScoreDOM()
+
+        holdCondition = true
+        updateHoldCondInDOM()
+    }
+    
 }

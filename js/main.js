@@ -2,27 +2,39 @@
 
 let d1 = {
     value:0,
-    hold:false
+    hold:false,
+    trueHold: false,
+    trueCount: false,
 }
 let d2 = {
     value:0,
-    hold:false
+    hold:false,
+    trueHold: false,
+    trueCount: false,
 }
 let d3 = {
     value:0,
-    hold:false
+    hold:false,
+    trueHold: false,
+    trueCount: false,
 }
 let d4 = {
     value:0,
-    hold:false
+    hold:false,
+    trueHold: false,
+    trueCount: false,
 }
 let d5 = {
     value:0,
-    hold:false
+    hold:false,
+    trueHold: false,
+    trueCount: false,
 }
 let d6 = {
     value:0,
-    hold:false
+    hold:false,
+    trueHold: false,
+    trueCount: false,
 }
 
 //This rollCoutn variable is basically the turn counnt.
@@ -41,7 +53,10 @@ rollButton.addEventListener('click', roll)
 let holdCondition = true
 
 function roll(){
-    if (d1.hold === true && d2.hold === true && d3.hold === true && d4.hold === true && d5.hold === true && d6.hold === true){
+    if (gameOver === true) {
+        alert('Game over, jabroni.  Reset to play again.')
+        return
+    } else if (d1.hold === true && d2.hold === true && d3.hold === true && d4.hold === true && d5.hold === true && d6.hold === true){
         alert('All dice held.  Finalize score, or get out the door.')
         return
     }
@@ -51,21 +66,33 @@ function roll(){
     } else {
         if (d1.hold === false){
             d1.value = Math.ceil(Math.random()*6)
+        } else if (d1.hold === true){
+            d1.trueHold = true
         }
         if (d2.hold === false){
             d2.value = Math.ceil(Math.random()*6)
+        } else if (d2.hold === true){
+            d2.trueHold = true
         }
         if (d3.hold === false){
             d3.value = Math.ceil(Math.random()*6)
+        } else if (d3.hold === true){
+            d3.trueHold = true
         }
         if (d4.hold === false){
             d4.value = Math.ceil(Math.random()*6)
+        } else if (d4.hold === true){
+            d4.trueHold = true
         }
         if (d5.hold === false){
             d5.value = Math.ceil(Math.random()*6)
+        } else if (d5.hold === true){
+            d5.trueHold = true
         }
         if (d6.hold === false){
             d6.value = Math.ceil(Math.random()*6)
+        } else if (d6.hold === true){
+            d6.trueHold = true
         }
         
         rollCount += 1
@@ -91,7 +118,54 @@ function updateHoldCondInDOM(){
     }
 }
 
+let trueHoldCount = 0
+
+
 function updateDiceInDOM(){
+    if (d1.trueHold === true){
+        hold1button.style = 'visibility: hidden;'
+        if (d1.trueCount === false){
+            trueHoldCount += 1
+            d1.trueCount = true
+        }
+    }
+    if (d2.trueHold === true){
+        hold2button.style = 'visibility: hidden;'
+        if (d2.trueCount === false){
+            trueHoldCount += 1
+            d2.trueCount = true
+        }
+    }
+    if (d3.trueHold === true){
+        hold3button.style = 'visibility: hidden;'
+        if (d3.trueCount === false){
+            trueHoldCount += 1
+            d3.trueCount = true
+        }
+    }
+    if (d4.trueHold === true){
+        hold4button.style = 'visibility: hidden;'
+        if (d4.trueCount === false){
+            trueHoldCount += 1
+            d4.trueCount = true
+        }
+    }
+    if (d5.trueHold === true){
+        hold5button.style = 'visibility: hidden;'
+        if (d5.trueCount === false){
+            trueHoldCount += 1
+            d5.trueCount = true
+        }
+    }
+    if (d6.trueHold === true){
+        hold6button.style = 'visibility: hidden;'
+        if (d6.trueCount === false){
+            trueHoldCount += 1
+            d6.trueCount = true
+        } else if (d6.trueCount === true){
+            return
+        }
+    }
     if (d1.hold === false){
         document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '.png'
     }
@@ -306,6 +380,12 @@ function score(){
             updateTopScoresDOM()
         }
         gameOver = true
+        hold1button.style = 'visibility: hidden;'
+        hold2button.style = 'visibility: hidden;'
+        hold3button.style = 'visibility: hidden;'
+        hold4button.style = 'visibility: hidden;'
+        hold5button.style = 'visibility: hidden;'
+        hold6button.style = 'visibility: hidden;'
     }
 
     if (totalScore.oneFour === true){
@@ -318,6 +398,12 @@ function score(){
             updateTopScoresDOM()
         }
         gameOver = true
+        hold1button.style = 'visibility: hidden;'
+        hold2button.style = 'visibility: hidden;'
+        hold3button.style = 'visibility: hidden;'
+        hold4button.style = 'visibility: hidden;'
+        hold5button.style = 'visibility: hidden;'
+        hold6button.style = 'visibility: hidden;'
     }
 
 }
@@ -336,25 +422,37 @@ function reset(){
     if (gameOver === true){
         d1.value = 0
         d1.hold = false
+        d1.trueHold = false
         document.querySelector('#dvalue1').src = 'img/dice-blank.png'
         d2.value = 0
         d2.hold = false
+        d2.trueHold = false
         document.querySelector('#dvalue2').src = 'img/dice-blank.png'
         d3.value = 0
         d3.hold = false
+        d3.trueHold = false
         document.querySelector('#dvalue3').src = 'img/dice-blank.png'
         d4.value = 0
         d4.hold = false
+        d4.trueHold = false
         document.querySelector('#dvalue4').src = 'img/dice-blank.png'
         d5.value = 0
         d5.hold = false
+        d5.trueHold = false
         document.querySelector('#dvalue5').src = 'img/dice-blank.png'
         d6.value = 0
         d6.hold = false
+        d6.trueHold = false
         document.querySelector('#dvalue6').src = 'img/dice-blank.png'
 
         document.querySelector('#final-score-title').style = 'visibility: hidden;'
         document.querySelector('#final-score').style = 'visibility: hidden;'
+        hold1button.style = 'visibility: visible;'
+        hold2button.style = 'visibility: visible;'
+        hold3button.style = 'visibility: visible;'
+        hold4button.style = 'visibility: visible;'
+        hold5button.style = 'visibility: visible;'
+        hold6button.style = 'visibility: visible;'
 
         
         gameOver = false
@@ -383,25 +481,37 @@ function reset(){
         }
         d1.value = 0
         d1.hold = false
+        d1.trueHold = false
         document.querySelector('#dvalue1').src = 'img/dice-blank.png'
         d2.value = 0
         d2.hold = false
+        d2.trueHold = false
         document.querySelector('#dvalue2').src = 'img/dice-blank.png'
         d3.value = 0
         d3.hold = false
+        d3.trueHold = false
         document.querySelector('#dvalue3').src = 'img/dice-blank.png'
         d4.value = 0
         d4.hold = false
+        d4.trueHold = false
         document.querySelector('#dvalue4').src = 'img/dice-blank.png'
         d5.value = 0
         d5.hold = false
+        d5.trueHold = false
         document.querySelector('#dvalue5').src = 'img/dice-blank.png'
         d6.value = 0
         d6.hold = false
+        d6.trueHold = false
         document.querySelector('#dvalue6').src = 'img/dice-blank.png'
 
         document.querySelector('#final-score-title').style = 'visibility: hidden;'
         document.querySelector('#final-score').style = 'visibility: hidden;'
+        hold1button.style = 'visibility: visible;'
+        hold2button.style = 'visibility: visible;'
+        hold3button.style = 'visibility: visible;'
+        hold4button.style = 'visibility: visible;'
+        hold5button.style = 'visibility: visible;'
+        hold6button.style = 'visibility: visible;'
 
         
         gameOver = false

@@ -38,6 +38,18 @@ h1 {
   border-radius: 5px;
 }
 
+#BOTTOMS {
+  display: none;
+  color: white;
+  font-size: 150%;
+  font-weight: 700;
+  height: 50px;
+  width: 100%;
+  background:rgb(165, 24, 24);
+  margin: 15px auto;
+  border-radius: 5px;
+}
+
 .dice {
   background: rgba(235, 167, 167, .4);
   display: flex;

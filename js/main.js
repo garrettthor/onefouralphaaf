@@ -122,6 +122,24 @@ let trueHoldCount = 0
 
 
 function updateDiceInDOM(){
+    if (d1.hold === false){
+        document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '.png'
+    }
+    if (d2.hold === false){
+        document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '.png'
+    }
+    if (d3.hold === false){
+        document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '.png' 
+    }
+    if (d4.hold === false){
+        document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '.png'
+    }
+    if (d5.hold === false){
+        document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '.png' 
+    }
+    if (d6.hold === false){
+        document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '.png' 
+    }   
     if (d1.trueHold === true){
         hold1button.style = 'visibility: hidden;'
         if (d1.trueCount === false){
@@ -166,24 +184,6 @@ function updateDiceInDOM(){
             return
         }
     }
-    if (d1.hold === false){
-        document.querySelector('#dvalue1').src = 'img/dice-' + d1.value + '.png'
-    }
-    if (d2.hold === false){
-        document.querySelector('#dvalue2').src = 'img/dice-' + d2.value + '.png'
-    }
-    if (d3.hold === false){
-        document.querySelector('#dvalue3').src = 'img/dice-' + d3.value + '.png' 
-    }
-    if (d4.hold === false){
-        document.querySelector('#dvalue4').src = 'img/dice-' + d4.value + '.png'
-    }
-    if (d5.hold === false){
-        document.querySelector('#dvalue5').src = 'img/dice-' + d5.value + '.png' 
-    }
-    if (d6.hold === false){
-        document.querySelector('#dvalue6').src = 'img/dice-' + d6.value + '.png' 
-    }   
 }
 
 

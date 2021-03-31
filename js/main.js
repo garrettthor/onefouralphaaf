@@ -61,7 +61,7 @@ function roll(){
         return
     }
     if (holdCondition === false){
-        alert('Select a die to hold, ya dummy.')
+        alert('Select a die to hold, space cadet.')
         return
     } else {
         if (d1.hold === false){
